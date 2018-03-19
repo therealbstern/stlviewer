@@ -9,4 +9,7 @@ stlviewer: trackball.o stl.o stl_viewer.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 clean:
-	rm -f *.o stlviewer
+	rm -f *.o stlviewer tags
+
+tags: $(wildcard *.c) $(wildcard *.h)
+	ctags $^
