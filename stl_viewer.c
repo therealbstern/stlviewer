@@ -31,14 +31,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef _Linux_
-    #include <GL/glut.h>
-#endif
-
-#ifdef _Darwin_
-    #include <GLUT/glut.h>
-    #include <OpenGL/gl.h>
-    #include <OpenGL/glu.h>
+#ifdef linux
+#include <GL/glut.h>
+#else
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 #endif
 
 #include "stl.h"
