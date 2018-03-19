@@ -67,41 +67,31 @@
 static float tb_project_to_sphere(float, float, float);
 static void normalize_quat(float [4]);
 
-void
-vzero(float *v)
-{
+void vzero(float *v) {
     v[0] = 0.0;
     v[1] = 0.0;
     v[2] = 0.0;
 }
 
-void
-vset(float *v, float x, float y, float z)
-{
+void vset(float *v, float x, float y, float z) {
     v[0] = x;
     v[1] = y;
     v[2] = z;
 }
 
-void
-vsub(const float *src1, const float *src2, float *dst)
-{
+void vsub(const float *src1, const float *src2, float *dst) {
     dst[0] = src1[0] - src2[0];
     dst[1] = src1[1] - src2[1];
     dst[2] = src1[2] - src2[2];
 }
 
-void
-vcopy(const float *v1, float *v2)
-{
+void vcopy(const float *v1, float *v2) {
     register int i;
     for (i = 0 ; i < 3 ; i++)
         v2[i] = v1[i];
 }
 
-void
-vcross(const float *v1, const float *v2, float *cross)
-{
+void vcross(const float *v1, const float *v2, float *cross) {
     float temp[3];
 
     temp[0] = (v1[1] * v2[2]) - (v1[2] * v2[1]);
@@ -110,35 +100,25 @@ vcross(const float *v1, const float *v2, float *cross)
     vcopy(temp, cross);
 }
 
-float
-vlength(const float *v)
-{
+float vlength(const float *v) {
     return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 }
 
-void
-vscale(float *v, float div)
-{
+void vscale(float *v, float div) {
     v[0] *= div;
     v[1] *= div;
     v[2] *= div;
 }
 
-void
-vnormal(float *v)
-{
+void vnormal(float *v) {
     vscale(v,1.0/vlength(v));
 }
 
-float
-vdot(const float *v1, const float *v2)
-{
+float vdot(const float *v1, const float *v2) {
     return v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
 }
 
-void
-vadd(const float *src1, const float *src2, float *dst)
-{
+void vadd(const float *src1, const float *src2, float *dst) {
     dst[0] = src1[0] + src2[0];
     dst[1] = src1[1] + src2[1];
     dst[2] = src1[2] + src2[2];
@@ -156,9 +136,7 @@ vadd(const float *src1, const float *src2, float *dst)
  * It is assumed that the arguments to this routine are in the range
  * (-1.0 ... 1.0)
  */
-void
-trackball(float q[4], float p1x, float p1y, float p2x, float p2y)
-{
+void trackball(float q[4], float p1x, float p1y, float p2x, float p2y) {
     float a[3]; /* Axis of rotation */
     float phi;  /* how much to rotate about axis */
     float p1[3], p2[3], d[3];
@@ -202,9 +180,7 @@ trackball(float q[4], float p1x, float p1y, float p2x, float p2y)
 /*
  *  Given an axis and angle, compute quaternion.
  */
-void
-axis_to_quat(float a[3], float phi, float q[4])
-{
+void axis_to_quat(float a[3], float phi, float q[4]) {
     vnormal(a);
     vcopy(a,q);
     vscale(q,sin(phi/2.0));
@@ -215,9 +191,7 @@ axis_to_quat(float a[3], float phi, float q[4])
  * Project an x,y pair onto a sphere of radius r OR a hyperbolic sheet
  * if we are away from the center of the sphere.
  */
-static float
-tb_project_to_sphere(float r, float x, float y)
-{
+static float tb_project_to_sphere(float r, float x, float y) {
     float d, t, z;
 
     d = sqrt(x*x + y*y);
@@ -243,9 +217,7 @@ tb_project_to_sphere(float r, float x, float y)
 
 #define RENORMCOUNT 97
 
-void
-add_quats(float q1[4], float q2[4], float dest[4])
-{
+void add_quats(float q1[4], float q2[4], float dest[4]) {
     static int count=0;
     float t1[4], t2[4], t3[4];
     float tf[4];
@@ -284,9 +256,7 @@ add_quats(float q1[4], float q2[4], float dest[4])
  * - Pletinckx, D., Quaternion calculus as a basic tool in computer
  *   graphics, The Visual Computer 5, 2-13, 1989.
  */
-static void
-normalize_quat(float q[4])
-{
+static void normalize_quat(float q[4]) {
     int i;
     float mag;
 
@@ -298,9 +268,7 @@ normalize_quat(float q[4])
  * Build a rotation matrix, given a quaternion rotation.
  *
  */
-void
-build_rotmatrix(float m[4][4], float q[4])
-{
+void build_rotmatrix(float m[4][4], float q[4]) {
     m[0][0] = 1.0 - 2.0 * (q[1] * q[1] + q[2] * q[2]);
     m[0][1] = 2.0 * (q[0] * q[1] - q[2] * q[3]);
     m[0][2] = 2.0 * (q[2] * q[0] + q[1] * q[3]);
