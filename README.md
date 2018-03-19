@@ -25,4 +25,4 @@ necessary packages.
 
 ## Options
 
-./stlviewer --help
+`./stlviewer --help`
