@@ -1,6 +1,7 @@
 # Install dependencies
 
-For UNIX / Linux, simply enter the following command that will install all necessary packages:
+For UNIX/Linux, the following commands are supposed to install all the
+necessary packages.
 
 ## Debian, Ubuntu
 
@@ -16,7 +17,7 @@ For UNIX / Linux, simply enter the following command that will install all neces
 
 # Compile
 
-make
+`make`
 
 # Viewer
 
